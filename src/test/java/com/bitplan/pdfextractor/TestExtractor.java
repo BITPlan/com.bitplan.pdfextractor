@@ -43,7 +43,7 @@ import com.bitplan.pdf.TextBlock;
  */
 public class TestExtractor {
 
-  public boolean debug = true;
+  public boolean debug = false;
 
   @Test
   public void testPDFExtract() throws Exception {

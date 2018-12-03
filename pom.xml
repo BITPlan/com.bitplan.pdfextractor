@@ -12,8 +12,17 @@
 	<packaging>jar</packaging>
 	<artifactId>com.bitplan.pdfextractor</artifactId>
 	<version>0.0.1</version>
-	<name>PDF Extractor</name>
+	<name>PDFExtractor</name>
 	<description>extracts text from PDF (files)</description>
+	<properties>
+    <!-- for parent pom to work -->
+    <github.project>com.bitplan.pdfextractor</github.project>
+    <!-- for README.md generation -->
+    <documentation.wiki>http://wiki.bitplan.com/index.php/dragtop/pdfextractor</documentation.wiki>
+    <!-- activate createAssembly -->
+    <assemblyMainClass>com.bitplan.pdf.PdfExtractor</assemblyMainClass>
+    <!-- versions of other libraries to be used -->
+  </properties>
 	<dependencies>
 		<!-- https://github.com/BITPlan/com.bitplan.javafx -->
 		<dependency>

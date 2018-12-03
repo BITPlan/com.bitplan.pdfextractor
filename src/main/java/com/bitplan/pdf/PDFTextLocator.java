@@ -57,7 +57,6 @@ public class PDFTextLocator extends PDFTextStripper {
 
   /**
    * construct me
-   * @param pdDocument 
    * 
    * @throws IOException
    */

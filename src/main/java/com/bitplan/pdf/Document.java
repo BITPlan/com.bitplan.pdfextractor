@@ -49,13 +49,13 @@ public class Document {
   }
 
   public Document(PDDocument pdDocument) {
-    this.pdDocument = pdDocument;
+    this.setPdDocument(pdDocument);
   }
 
   /**
    * get the current Page
    * 
-   * @return
+   * @return the current page
    */
   public Page currentPage() {
     if (getPages().size() == 0)
@@ -69,6 +69,14 @@ public class Document {
 
   public void setPages(List<Page> pages) {
     this.pages = pages;
+  }
+
+  public PDDocument getPdDocument() {
+    return pdDocument;
+  }
+
+  public void setPdDocument(PDDocument pdDocument) {
+    this.pdDocument = pdDocument;
   }
 
   public void add(Page page) {
