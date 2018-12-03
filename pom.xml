@@ -1,0 +1,49 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.bitplan.pom</groupId>
+		<artifactId>com.bitplan.pom</artifactId>
+		<version>0.0.17</version>
+		<relativePath>../com.bitplan.pom/pom.xml</relativePath>
+	</parent>
+	<groupId>com.bitplan.pdfextractor</groupId>
+	<packaging>jar</packaging>
+	<artifactId>com.bitplan.pdfextractor</artifactId>
+	<version>0.0.1</version>
+	<name>PDF Extractor</name>
+	<description>extracts text from PDF (files)</description>
+	<dependencies>
+		<!-- https://github.com/BITPlan/com.bitplan.javafx -->
+		<dependency>
+			<groupId>com.bitplan.gui</groupId>
+			<artifactId>com.bitplan.javafx</artifactId>
+		</dependency>
+		<!-- JUnit testing -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.hamcrest</groupId>
+			<artifactId>hamcrest-all</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.pdfbox/pdfbox -->
+		<dependency>
+			<groupId>org.apache.pdfbox</groupId>
+			<artifactId>pdfbox</artifactId>
+			<version>2.0.12</version>
+		</dependency>
+		<!-- fuzzy search https://github.com/xdrop/fuzzywuzzy -->
+		<dependency>
+			<groupId>me.xdrop</groupId>
+			<artifactId>fuzzywuzzy</artifactId>
+			<version>1.2.0</version>
+		</dependency>
+	</dependencies>
+	<build>
+	</build>
+</project>
