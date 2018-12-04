@@ -15,15 +15,28 @@
 	<name>PDFExtractor</name>
 	<description>extracts text from PDF (files)</description>
 	<properties>
-    <!-- for parent pom to work -->
-    <github.project>com.bitplan.pdfextractor</github.project>
-    <!-- for README.md generation -->
-    <documentation.wiki>http://wiki.bitplan.com/index.php/dragtop/pdfextractor</documentation.wiki>
-    <!-- activate createAssembly -->
-    <assemblyMainClass>com.bitplan.pdf.PdfExtractor</assemblyMainClass>
-    <!-- versions of other libraries to be used -->
-  </properties>
+		<!-- for parent pom to work -->
+		<github.project>com.bitplan.pdfextractor</github.project>
+		<!-- for README.md generation -->
+		<documentation.wiki>http://wiki.bitplan.com/index.php/dragtop/pdfextractor</documentation.wiki>
+		<!-- activate createAssembly -->
+		<assemblyMainClass>com.bitplan.pdf.PdfExtractor</assemblyMainClass>
+		<!-- versions of other libraries to be used -->
+	</properties>
 	<dependencies>
+		<!-- Drag and Drop target desktop application with pluggable functionality 
+			http://wiki.bitplan.com/index.php/dragtop -->
+		<dependency>
+			<groupId>com.bitplan.dragtop</groupId>
+			<artifactId>com.bitplan.dragtop</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+		<!-- https://search.maven.org/artifact/org.pf4j/pf4j/2.4.0/jar -->
+		<dependency>
+			<groupId>org.pf4j</groupId>
+			<artifactId>pf4j</artifactId>
+			<version>2.4.0</version>
+		</dependency>
 		<!-- https://github.com/BITPlan/com.bitplan.javafx -->
 		<dependency>
 			<groupId>com.bitplan.gui</groupId>
@@ -54,5 +67,28 @@
 		</dependency>
 	</dependencies>
 	<build>
+		<plugins>
+			<!-- jar creation -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>${maven-assembly-plugin.version}</version>
+				<configuration>
+					<archive>
+						<manifest>
+							<addClasspath>false</addClasspath>
+						</manifest>
+						<!-- see https://github.com/pf4j/pf4j -->
+						<manifestEntries>
+							<Plugin-Class>com.bitplan.pdf.PDFDropHandlerPlugin</Plugin-Class>
+							<Plugin-Dependencies></Plugin-Dependencies>
+							<Plugin-Id>${project.artifactId}</Plugin-Id>
+							<Plugin-Provider>BITPlan GmbH</Plugin-Provider>
+							<Plugin-Version>${project.version}</Plugin-Version>
+						</manifestEntries>
+					</archive>
+				</configuration>
+			</plugin>
+		</plugins>
 	</build>
 </project>

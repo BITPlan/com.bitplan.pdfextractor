@@ -57,7 +57,7 @@ public class PDFTextLocator extends PDFTextStripper {
 
   /**
    * construct me
-   * 
+java   * 
    * @throws IOException
    */
   public PDFTextLocator() throws IOException {

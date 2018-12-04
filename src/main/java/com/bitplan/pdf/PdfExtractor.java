@@ -21,11 +21,13 @@
 package com.bitplan.pdf;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.encryption.InvalidPasswordException;
 import org.kohsuke.args4j.Argument;
 import org.kohsuke.args4j.Option;
 
@@ -64,17 +66,30 @@ public class PdfExtractor extends Main {
     if (this.arguments.size() > 0) {
       for (String pdfFileName : arguments) {
         File pdfFile = new File(pdfFileName);
-        PDDocument document = PDDocument.load(pdfFile);
-        PDFTextLocator locator = new PDFTextLocator();
-        locator.setDebug(debug);
-        String text = locator.getText(document);
-        String textPath = pdfFile.getAbsolutePath().replace(".pdf", ".txt");
-        File textFile = new File(textPath);
-        if (!textFile.exists() || overwrite) {
-          FileUtils.writeStringToFile(textFile, text,"UTF-8");
-        }
+        extract(pdfFile,overwrite);
       }
     }
+  }
+  
+  /**
+   * extract the text for the given pdfFile
+   * @param pdfFile
+   * @throws Exception
+   * @return the text file
+   */
+  public List<File> extract(File pdfFile, boolean pOverwrite) throws Exception {
+    List<File> files=new ArrayList<File>();
+    PDDocument document = PDDocument.load(pdfFile);
+    PDFTextLocator locator = new PDFTextLocator();
+    locator.setDebug(debug);
+    String text = locator.getText(document);
+    String textPath = pdfFile.getAbsolutePath().replace(".pdf", ".txt");
+    File textFile = new File(textPath);
+    if (!textFile.exists() || pOverwrite) {
+      FileUtils.writeStringToFile(textFile, text,"UTF-8");
+      files.add(textFile);
+    }
+    return files;
   }
 
   /**
