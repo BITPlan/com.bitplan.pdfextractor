@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.apache.pdfbox.pdmodel.PDDocument;
+import com.google.gson.Gson;
 
 import me.xdrop.fuzzywuzzy.FuzzySearch;
 import me.xdrop.fuzzywuzzy.model.ExtractedResult;
@@ -36,9 +36,18 @@ import me.xdrop.fuzzywuzzy.model.ExtractedResult;
  *
  */
 public class Document {
+  String url;
   private List<Page> pages = new ArrayList<Page>();
-  private PDDocument pdDocument;
+  
   private String text;
+
+  public String getUrl() {
+    return url;
+  }
+
+  public void setUrl(String url) {
+    this.url = url;
+  }
 
   public String getText() {
     return text;
@@ -46,10 +55,6 @@ public class Document {
 
   public void setText(String text) {
     this.text = text;
-  }
-
-  public Document(PDDocument pdDocument) {
-    this.setPdDocument(pdDocument);
   }
 
   /**
@@ -71,17 +76,14 @@ public class Document {
     this.pages = pages;
   }
 
-  public PDDocument getPdDocument() {
-    return pdDocument;
-  }
-
-  public void setPdDocument(PDDocument pdDocument) {
-    this.pdDocument = pdDocument;
-  }
-
+  /**
+   * add the given page
+   * @param page
+   */
   public void add(Page page) {
     pages.add(page);
     page.setDocument(this);
+    page.setPageNo(pages.size());
   }
 
   /**
@@ -108,6 +110,16 @@ public class Document {
       }
     }
     return hits;
+  }
+
+  /**
+   * get my json representation
+   * @return - the json representation
+   */
+  public String asJson() {
+    Gson gson=new Gson();
+    String json=gson.toJson(this);
+    return json;
   }
 
 }

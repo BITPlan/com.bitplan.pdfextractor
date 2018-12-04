@@ -23,10 +23,14 @@ package com.bitplan.pdfextractor;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.io.File;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.junit.Test;
 
@@ -35,6 +39,7 @@ import com.bitplan.pdf.Document;
 import com.bitplan.pdf.DocumentDisplay;
 import com.bitplan.pdf.PDFDropHandlerPlugin;
 import com.bitplan.pdf.PDFTextLocator;
+import com.bitplan.pdf.PdfExtractor;
 import com.bitplan.pdf.TextBlock;
 
 /**
@@ -44,13 +49,14 @@ import com.bitplan.pdf.TextBlock;
  *
  */
 public class TestExtractor {
-
+  protected static Logger LOGGER = Logger.getLogger("com.bitplan.pdfextractor");
+  private static final String US_CONSTITUTION_URL = "https://www.usconstitution.net/const.pdf";;
   public boolean debug = false;
-  
+
   @Test
   public void testPlugin() {
     // test assignability at compile time
-    DropHandler handler=new PDFDropHandlerPlugin.PDFDropHandler();
+    DropHandler handler = new PDFDropHandlerPlugin.PDFDropHandler();
     // test assignability at run time
     Class<? extends DropHandler> pluginType = handler.getClass();
     Class<DropHandler> type = DropHandler.class;
@@ -59,11 +65,10 @@ public class TestExtractor {
 
   @Test
   public void testPDFExtract() throws Exception {
-    InputStream pdfStream = new URL("https://www.usconstitution.net/const.pdf")
-        .openStream();
+    InputStream pdfStream = new URL(US_CONSTITUTION_URL).openStream();
     PDDocument document = PDDocument.load(pdfStream);
     // https://stackoverflow.com/questions/32978179/using-pdfbox-to-get-location-of-line-of-text
-    PDFTextLocator locator = new PDFTextLocator();
+    PDFTextLocator locator = new PDFTextLocator(US_CONSTITUTION_URL);
     locator.setDebug(debug);
     String text = locator.getText(document);
     assertEquals(locator.isDebug() ? 56150 : 48548, text.length());
@@ -73,12 +78,28 @@ public class TestExtractor {
     }
 
     Document doc = locator.getDocument();
-    int limit=55;
-    List<TextBlock> hits = doc.fuzzySearch(limit,"Tax", "Congress", "Amendment");
+    int limit = 55;
+    List<TextBlock> hits = doc.fuzzySearch(limit, "Tax", "Congress",
+        "Amendment");
     if (debug) {
-      DocumentDisplay.display(doc,limit);
+      DocumentDisplay.display(doc, limit);
     }
-    assertEquals(146,hits.size());
+    assertEquals(146, hits.size());
+  }
+
+  @Test
+  public void testPDFExtractor() throws Exception {
+    PdfExtractor extractor = new PdfExtractor();
+    File constitutionPdf = File.createTempFile("USconstitution", ".pdf");
+    FileUtils.copyURLToFile(new URL(US_CONSTITUTION_URL), constitutionPdf);
+    boolean overwrite=true;
+    extractor.extract(constitutionPdf, overwrite);
+    File jsonFile=new File(constitutionPdf.getAbsolutePath().replace(".pdf", ".json"));
+    assertTrue(jsonFile.exists());
+    String json=FileUtils.readFileToString(jsonFile, "UTF-8");
+    if (debug)
+      LOGGER.log(Level.INFO, json);
+    assertTrue(json.contains("{\"x\":"));
   }
 
 }

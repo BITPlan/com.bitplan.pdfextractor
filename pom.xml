@@ -60,6 +60,11 @@
 			<artifactId>pdfbox</artifactId>
 			<version>2.0.12</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+		</dependency>
 		<!-- fuzzy search https://github.com/xdrop/fuzzywuzzy -->
 		<dependency>
 			<groupId>me.xdrop</groupId>

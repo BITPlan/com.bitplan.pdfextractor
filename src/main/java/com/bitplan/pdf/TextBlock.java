@@ -32,12 +32,15 @@ import me.xdrop.fuzzywuzzy.model.ExtractedResult;
  * @author wf
  */
 public class TextBlock {
+  double x;
+  double y;
+  String text;
+  
+  transient List<TextPosition> textPositions;
+  transient private TextPosition firstPosition;
+  transient private Page page;
+  transient public List<ExtractedResult> fsr;
 
-  private String text;
-  List<TextPosition> textPositions;
-  private TextPosition firstPosition;
-  private Page page;
-  public List<ExtractedResult> fsr;
 
   public String getText() {
     return text;
@@ -62,6 +65,8 @@ public class TextBlock {
     this.setText(text);
     this.textPositions = textPositions;
     firstPosition = textPositions.get(0);
+    x=getX();
+    y=getY();
   }
 
   public double getX() {

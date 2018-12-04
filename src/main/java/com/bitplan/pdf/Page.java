@@ -32,11 +32,21 @@ import org.apache.pdfbox.pdmodel.PDPage;
  *
  */
 public class Page {
-  PDPage pdPage;
-  Document document;
+  int pageNo;
+  List<TextBlock> textBlocks = new ArrayList<TextBlock>();
+
+  transient PDPage pdPage;
+  transient Document document;
   
-  boolean startOfLine = true;
-  private List<TextBlock> textBlocks = new ArrayList<TextBlock>();
+  transient boolean startOfLine = true;
+  
+  public int getPageNo() {
+    return pageNo;
+  }
+
+  public void setPageNo(int pageNo) {
+    this.pageNo = pageNo;
+  }
 
   public List<TextBlock> getTextBlocks() {
     return textBlocks;
@@ -46,6 +56,10 @@ public class Page {
     this.textBlocks = textBlocks;
   }
 
+  /**
+   * construct me from the given pdPage
+   * @param pdPage
+   */
   public Page(PDPage pdPage) {
     this.pdPage = pdPage;
   }

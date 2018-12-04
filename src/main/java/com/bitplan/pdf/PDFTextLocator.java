@@ -48,7 +48,7 @@ public class PDFTextLocator extends PDFTextStripper {
   public Document getDocument() {
     return document;
   }
- 
+
   public void setDocument(Document document) {
     this.document = document;
   }
@@ -56,18 +56,20 @@ public class PDFTextLocator extends PDFTextStripper {
   private Document document;
 
   /**
-   * construct me
-java   * 
+   * construct me java *
+   * 
    * @throws IOException
    */
-  public PDFTextLocator() throws IOException {
+  public PDFTextLocator(String url) throws IOException {
     super();
+    setDocument(new Document());
+    getDocument().setUrl(url);
   }
   
-  @Override 
+
+  @Override
   public String getText(PDDocument pdDocument) throws IOException {
-    setDocument(new Document(pdDocument));
-    String text=super.getText(pdDocument);
+    String text = super.getText(pdDocument);
     getDocument().setText(text);
     return text;
   }

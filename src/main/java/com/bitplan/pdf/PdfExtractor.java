@@ -21,13 +21,11 @@
 package com.bitplan.pdf;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.encryption.InvalidPasswordException;
 import org.kohsuke.args4j.Argument;
 import org.kohsuke.args4j.Option;
 
@@ -80,14 +78,22 @@ public class PdfExtractor extends Main {
   public List<File> extract(File pdfFile, boolean pOverwrite) throws Exception {
     List<File> files=new ArrayList<File>();
     PDDocument document = PDDocument.load(pdfFile);
-    PDFTextLocator locator = new PDFTextLocator();
+    PDFTextLocator locator = new PDFTextLocator(pdfFile.toURI().toString());
     locator.setDebug(debug);
     String text = locator.getText(document);
+    // create a text file
     String textPath = pdfFile.getAbsolutePath().replace(".pdf", ".txt");
     File textFile = new File(textPath);
     if (!textFile.exists() || pOverwrite) {
       FileUtils.writeStringToFile(textFile, text,"UTF-8");
       files.add(textFile);
+    }
+    String jsonPath=pdfFile.getAbsolutePath().replace(".pdf", ".json");
+    File jsonFile=new File(jsonPath);
+    if (!jsonFile.exists() || pOverwrite) {
+      String json=locator.getDocument().asJson();
+      FileUtils.writeStringToFile(jsonFile, json,"UTF-8");
+      files.add(jsonFile);
     }
     return files;
   }
