@@ -1,4 +1,4 @@
 #!/bin/bash
 # create a release
 # WF 2018-12-03
-mvn install -D createAssembly=true -D createRelease=true
+mvn clean install -D createAssembly=true -D createRelease=true

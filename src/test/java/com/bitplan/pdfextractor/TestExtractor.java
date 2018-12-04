@@ -30,8 +30,10 @@ import java.util.List;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.junit.Test;
 
+import com.bitplan.dragtop.DropHandler;
 import com.bitplan.pdf.Document;
 import com.bitplan.pdf.DocumentDisplay;
+import com.bitplan.pdf.PDFDropHandlerPlugin;
 import com.bitplan.pdf.PDFTextLocator;
 import com.bitplan.pdf.TextBlock;
 
@@ -44,6 +46,16 @@ import com.bitplan.pdf.TextBlock;
 public class TestExtractor {
 
   public boolean debug = false;
+  
+  @Test
+  public void testPlugin() {
+    // test assignability at compile time
+    DropHandler handler=new PDFDropHandlerPlugin.PDFDropHandler();
+    // test assignability at run time
+    Class<? extends DropHandler> pluginType = handler.getClass();
+    Class<DropHandler> type = DropHandler.class;
+    assertTrue(type.isAssignableFrom(pluginType));
+  }
 
   @Test
   public void testPDFExtract() throws Exception {

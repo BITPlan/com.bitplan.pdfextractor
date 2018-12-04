@@ -53,6 +53,13 @@ public class PDFDropHandlerPlugin extends Plugin {
   @Extension
   public static class PDFDropHandler implements DropHandler {
 
+    /**
+     * no args constructor
+     */
+    public PDFDropHandler() {
+      
+    }
+    
     Consumer<DragItem> handler = dragItem -> {
       if (dragItem.getItem() instanceof File) {
         File pdfFile = (File) dragItem.getItem();
