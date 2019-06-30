@@ -21,6 +21,7 @@
 package com.bitplan.pdfextractor;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
@@ -100,6 +101,15 @@ public class TestExtractor {
     if (debug)
       LOGGER.log(Level.INFO, json);
     assertTrue(json.contains("{\"x\":"));
+  }
+  
+  @Test
+  public void testCommandLine() {
+    PdfExtractor.testMode=true;
+    String args[]= {};
+    PdfExtractor.main(args);
+    PdfExtractor extractor=new PdfExtractor();
+    assertNotNull(extractor.getSupportEMail());
   }
 
 }

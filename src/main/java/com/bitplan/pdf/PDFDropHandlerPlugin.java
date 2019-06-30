@@ -53,26 +53,29 @@ public class PDFDropHandlerPlugin extends Plugin {
   @Extension
   public static class PDFDropHandler implements DropHandler {
 
+    boolean on;
+
     /**
      * no args constructor
      */
     public PDFDropHandler() {
-      
+
     }
-    
+
     Consumer<DragItem> handler = dragItem -> {
       if (dragItem.getItem() instanceof File) {
         File pdfFile = (File) dragItem.getItem();
         if (pdfFile.getName().endsWith(".pdf")) {
           PdfExtractor extractor = new PdfExtractor();
           try {
-            boolean overwrite=true;
-            extractor.extract(pdfFile,overwrite);
+            boolean overwrite = true;
+            extractor.extract(pdfFile, overwrite);
           } catch (Exception e) {
             LOGGER.log(Level.INFO, e.getMessage(), e);
           }
         }
-      };
+      }
+      ;
     };
 
     @Override
@@ -83,6 +86,16 @@ public class PDFDropHandlerPlugin extends Plugin {
     @Override
     public void setHandler(Consumer<DragItem> handler) {
       this.handler = handler;
+    }
+
+    @Override
+    public boolean isOn() {
+      return on;
+    }
+
+    @Override
+    public void setOn(boolean pOn) {
+      on = pOn;
     }
 
   }
