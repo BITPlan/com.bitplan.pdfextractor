@@ -3,7 +3,7 @@
 
 [![Travis (.org)](https://img.shields.io/travis/BITPlan/com.bitplan.pdfextractor.svg)](https://travis-ci.org/BITPlan/com.bitplan.pdfextractor)
 [![Maven Central](https://img.shields.io/maven-central/v/com.bitplan.pdfextractor/com.bitplan.pdfextractor.svg)](https://search.maven.org/artifact/com.bitplan.pdfextractor/com.bitplan.pdfextractor/0.0.1/jar)
-[![Coverage](https://img.shields.io/codecov/c/com.bitplan.pdfextractor/com.bitplan.pdfextractor.svg)](https://codecov.io/gh/BITPlan/com.bitplan.pdfextractor)
+[![codecov](https://codecov.io/gh/BITPlan/com.bitplan.pdfextractor/branch/master/graph/badge.svg)](https://codecov.io/gh/BITPlan/com.bitplan.pdfextractor)
 [![GitHub issues](https://img.shields.io/github/issues/BITPlan/com.bitplan.pdfextractor.svg)](https://github.com/BITPlan/com.bitplan.pdfextractor/issues)
 [![GitHub issues](https://img.shields.io/github/issues-closed/BITPlan/com.bitplan.pdfextractor.svg)](https://github.com/BITPlan/com.bitplan.pdfextractor/issues/?q=is%3Aissue+is%3Aclosed)
 [![GitHub](https://img.shields.io/github/license/BITPlan/com.bitplan.pdfextractor.svg)](https://www.apache.org/licenses/LICENSE-2.0)
